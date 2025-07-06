@@ -1,0 +1,23 @@
+services:
+  ark-server:
+    image: ark-server-evolved/leorca:1.0
+    container_name: disposable-ark-server-evolved
+    restart: always
+    environment:
+      - SKIP_UPDATE=true
+      - INSTALL_MODS=false
+    volumes:
+      - ./ARK:/home/steam/ARK
+      - type: bind
+        source: ./conf/main.cfg
+        target: /home/steam/.config/arkmanager/instances/main.cfg
+        read_only: true
+      - type: bind
+        source: ./conf/.arkmanager.cfg
+        target: /home/steam/.arkmanager.cfg
+        read_only: true
+    ports:
+      - 7777:7777/udp
+      - 7778:7778/udp
+      - 27015:27015/udp
+      - 27020:27020/tcp
